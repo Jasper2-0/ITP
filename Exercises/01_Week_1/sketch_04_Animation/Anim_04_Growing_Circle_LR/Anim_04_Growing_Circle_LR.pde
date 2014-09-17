@@ -1,28 +1,48 @@
 PVector p;
 PVector c;
 
-float rectSize = 50.0f;
+float defaultSize = 5.0f;
+float ellipseSize;
+float maxSize = 75;
+
+int steps;
+float stepSize;
+float inc;
 
 
 void setup() {
-  size(640, 640);
-
+  size(640,640);
+  
   c = new PVector(width / 2, height / 2);  
-  p = new PVector(0, c.y);
+  p = new PVector(0,c.y);
+
+  ellipseSize = defaultSize;
+
+
+  steps = width;
+  
+  stepSize = 1 / float(steps);
+
 }
 
 
 void draw() {
-  background(255);
-  noStroke();
-  fill(255, 0, 0);
-  rectMode(CENTER);
-  rect(p.x, p.y, rectSize, rectSize);
 
-  p.x = p.x+1;
+ellipseSize = lerp(defaultSize,maxSize,inc);
 
-  if (p.x > width) {
-    p.x = 0;
-  }
+  
+background(255);
+noStroke();
+fill(255,0,0);
+ellipseMode(RADIUS);
+ellipse(p.x,p.y,ellipseSize,ellipseSize);
+
+p.x = p.x+1;
+inc = inc + stepSize;
+
+if(p.x > width) {
+  p.x = 0;
+  inc = 0;
 }
 
+}
