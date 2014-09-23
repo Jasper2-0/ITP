@@ -6,8 +6,6 @@ PVector pos;
 PVector acc;
 PVector vel;
 
-float range = 100.0f;
-
 void setup() {
   size(640, 640);
   pos = new PVector(width/2, height/2);
