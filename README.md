@@ -1,4 +1,4 @@
 ITP
 ===
 
-Exercises from the Introduction to Programming Course @ Leiden University
+Exercises from the Introduction to Programming Course @ Media Technology / Leiden University
