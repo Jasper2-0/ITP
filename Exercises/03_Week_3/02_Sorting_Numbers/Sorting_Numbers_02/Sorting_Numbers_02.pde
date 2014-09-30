@@ -12,4 +12,4 @@ int l = arr[arr.length-1];
 arr[arr.length-1] = arr[0];
 arr[0] = l;
 
-println(arr);
+print(arr);
