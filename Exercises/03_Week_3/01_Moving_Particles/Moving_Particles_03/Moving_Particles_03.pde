@@ -26,7 +26,12 @@ float[] yAcc = new float[numCirc];
 float centerX;
 float centerY;
 
-float topSpeed = 1.0f;
+float topSpeed = 5.0f;
+
+float topBound;
+float bottomBound;
+float leftBound;
+float rightBound;
 
 void setup() {
   size(640,640);
@@ -45,6 +50,11 @@ void setup() {
     yAcc[i] = 1-random(2);
   }
   
+  topBound = 0 + ellipseSize / 2;
+  bottomBound = height - ellipseSize / 2;
+  
+  leftBound = 0 + ellipseSize / 2;
+  rightBound = width - ellipseSize / 2;
   
 }
 
@@ -68,6 +78,28 @@ void update() {
     if(yVel[i] < -topSpeed) {
       yVel[i] = -topSpeed;
     }
+
+// bound the moving particles. for kicks we'll flip their velocity acceleration 
+
+   if(xPos[i] < leftBound) {
+     xAcc[i] = -xAcc[i];
+     xVel[i] = -xVel[i];
+   }
+
+   if(xPos[i] > rightBound) {
+     xAcc[i] = -xAcc[i];
+     xVel[i] = -xVel[i];
+   }
+
+  if(yPos[i] < topBound) {
+    yAcc[i] = -yAcc[i];
+    yVel[i] = -yVel[i];
+  }
+
+  if(yPos[i] > bottomBound) {
+    yAcc[i] = -yAcc[i];
+    yVel[i] = -yVel[i];
+  }  
    
     xPos[i] = xPos[i] + xVel[i];
     yPos[i] = yPos[i] + yVel[i];
