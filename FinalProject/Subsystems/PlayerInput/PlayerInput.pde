@@ -48,9 +48,12 @@ void keyReleased() {
     }
     if (keyCode == LEFT) {
       p._left = false;
+      p.rollBack = true;
+      
     }
     if (keyCode == RIGHT) {
       p._right=false;
+      p.rollBack = true;
     }
   }
 }
