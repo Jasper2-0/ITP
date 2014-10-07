@@ -41,21 +41,6 @@ class Player extends Sprite {
   void update() {
     vel.set(0, 0, 0);
 
-    if (rollBack) {
-      if(banking > 0.0) {
-        banking -= bankStep;
-        if(banking <= 0.0) {
-          rollBack=false;
-        }
-      } 
-      if(banking < 0.0) {
-        banking += bankStep;
-        if(banking >=0.0) {
-          rollBack = false;
-        }
-      }
-    }
-
     if (_up) {
       acc.y = acc.y - speed;
     }
@@ -97,6 +82,24 @@ class Player extends Sprite {
       pos.y = height;
     }
 
+   
+   
+   if (rollBack) {
+      if(banking > 0.0f) {
+        banking -= bankStep;
+        if(banking <= 0.0f) {
+          rollBack=false;
+          banking = 0.0f;
+        }
+      } 
+      if(banking < 0.0) {
+        banking += bankStep;
+        if(banking >=0.0) {
+          rollBack = false;
+          banking = 0.0f;
+        }
+      }
+    }
     acc.set(0, 0, 0);
     
   }

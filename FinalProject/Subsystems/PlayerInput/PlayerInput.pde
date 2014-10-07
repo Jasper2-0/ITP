@@ -1,7 +1,9 @@
 Player p;
 
+boolean debug;
+
 void setup() {
-  size(480, 640, P3D);
+  size(1280, 720, P3D);
   p = new Player();
 }
 
@@ -16,6 +18,11 @@ void draw() {
   update();
   lights();
   p.draw();
+  
+}
+
+void debugDraw() {
+
 }
 
 void keyPressed() {
@@ -35,6 +42,13 @@ void keyPressed() {
   }
   if (key == ' ') {
     p.fire();
+  }
+  if (key == '§') {
+    if(debug) {
+      debug = false;
+    } else {
+      debug = true;
+    }
   }
 }
 
