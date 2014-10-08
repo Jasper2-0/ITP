@@ -5,56 +5,63 @@ class Particle extends Sprite {
 
   ParticleParameters param;
 
-  float age;
+  float age = 0;
 
-  Particle(PVector p, ParticleParameters pp) {
+  color startColor;
+  color endColor;
 
-    param = pp;
+  color colour;
 
-    acc = new PVector (0, 0);
-    vel = new PVector (random(-1, 1), random(-1, 1));
+  float mass;
+  float friction;
+  float lifespan;
+
+  Particle(PVector pos, ParticleParameters pp) {
+
+    this.mass = pp.mass;
+    this.friction = pp.friction;
+    this.lifespan = pp.lifespan;
+
+    this.startColor = pp.startColor;
+    this.endColor = pp.endColor;
+
+    this.pos = pos.get();
+    this.acc = new PVector (0, 0);
+    this.vel = new PVector (random(-1, 1), random(-1, 1));
+
     vel.setMag(random(1, 10));
-    pos = p.get();
-
-    age = param.lifespan;
   }
 
   void applyForce(PVector force) {
     PVector f = force.get();
-    f.div(param.mass);
+    f.div(mass);
     acc.add(f);
   }
 
   void update() {
+    
     vel.add(acc);
-    vel.mult(0.985);
+    vel.mult(friction);
     pos.add(vel);
     acc.mult(0);
-    age -= 1.0f;
+    age += 1.0f;
   }
 
   void draw() {
-
     pushMatrix();
     translate(pos.x, pos.y);
-
-    noFill();
-//    strokeWeight(1);
-    fill(param.startColor, map(age, param.lifespan, 0, 255, 128));
-//   stroke(255, 64, 32, map(age, param.lifespan, 0, 255, 0));    
-
-    //    ellipseMode(CENTER);
-    float size = map(age, param.lifespan, 0, 10, 0);
-    ellipse(0, 0, size, size);
-   line(0, 0, vel.x, vel.y);
+    strokeWeight(2);
+    
+    stroke(lerpColor(startColor, endColor, age/lifespan));
+    line(0, 0, vel.x, vel.y);
     popMatrix();
   }
 
   boolean isDead() {
-    if (age <= 0.0) {
-      return true;
-    } else {
+    if (age <= lifespan) {
       return false;
+    } else {
+      return true;
     }
   }
 }
