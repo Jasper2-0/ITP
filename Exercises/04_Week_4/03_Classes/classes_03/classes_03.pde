@@ -12,7 +12,7 @@ void setup() {
 
   for (int i = 0; i<rows; i++) {
     for (int j = 0; j<cols; j++) {
-      enemies.add(new EnemySpaceShip(#204080, new PVector(320+i*20, 320+j*20)));
+      enemies.add(new EnemySpaceShip(#FFFF00, new PVector(320+i*20, 320+j*20)));
     }
   }
 }
