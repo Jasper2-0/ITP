@@ -7,7 +7,7 @@ ArrayList<EnemySpaceShip> enemies;
 
 void setup() {
   size(640, 640);
-  
+
   enemies = new ArrayList<EnemySpaceShip>();
 
   for (int i = 0; i<rows; i++) {
@@ -24,10 +24,9 @@ void draw() {
   }
 }
 
-
 void mousePressed() {
-  for(EnemySpaceShip e: enemies) {
-    e.hit(mouseX,mouseY);
+  for (EnemySpaceShip e : enemies) {
+    e.hit(mouseX, mouseY);
   }
 }
 
