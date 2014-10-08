@@ -4,23 +4,25 @@ Debug environment for my tiny particle system.
 
 */
 
+PSParameters psp;
 ParticleSystem ps;
-ParticleParameters pp;
+
 
 void setup() {
   size(640,480,P3D);
-  pp = new ParticleParameters();
+  psp = new PSParameters();
   
-  pp.mass = 10.0f;
-  pp.lifespan = 60.0f;
+  psp.pp.mass = 10.0f;
+  psp.pp.lifespan = random(40.0f,60.0f);
   
-  ps = new ParticleSystem(new PVector(width / 2, height / 2), pp);
+  ps = new ParticleSystem(new PVector(width / 2, height / 2), psp);
       blendMode(ADD);
 }
 
 void draw() {
   background(0);
-  ps.addParticle();
+  ps.emit();
+  ps.applyForce(new PVector(0,1));
   ps.update();
   ps.draw();
 }
