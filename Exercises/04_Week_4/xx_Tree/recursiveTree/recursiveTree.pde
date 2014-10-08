@@ -6,11 +6,12 @@ void setup() {
   size(640, 640);
   noFill();
   stroke(#008000,192);
-  background(255);
-  drawTree(320, 640, -PI/2, levels,branchLength);
+  frameRate(2);
 }
 
 void draw() {
+    background(255);
+  drawTree(320, 640, -PI/2, levels,branchLength);
 }
 
 
