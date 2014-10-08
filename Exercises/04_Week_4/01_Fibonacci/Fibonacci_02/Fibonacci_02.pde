@@ -3,13 +3,13 @@ int calls = 0;
 
 void setup() {
   println(millis());
-  println(fibonacci(15));
+  println(fibonacci(10));
   println("calls: "+calls);
   println(millis());
 }
 
 
-int fibonacci(int n) {
+long fibonacci(long n) {
   if(n<=1) {
     return n;
   } else {

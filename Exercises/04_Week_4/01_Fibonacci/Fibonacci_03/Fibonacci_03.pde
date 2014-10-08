@@ -1,10 +1,6 @@
 int iterations = 0;
 int callsRec = 0;
 
-//int n = 15;
-
-
-
 void setup() {
   for (int i = 0; i < 20; i++) {
     println("i: "+i+" fib: "+fibonacciFor(i));
@@ -18,16 +14,16 @@ void setup() {
   println("in this particular algorithm, going about it recursively results in a massive amount of calls, compared to the iterations in the for-loop.");
 }
 
-int fibonacciFor(int n) {
+long fibonacciFor(int n) {
 
-  int prevValue = 1;
-  int curValue = 1;
+  long prevValue = 1;
+  long curValue = 1;
 
   if (n <= 1) {
     return n;
   }
   for (int i = 2; i<n; i++) {
-    int temp = curValue;
+    long temp = curValue;
     curValue += prevValue;
     prevValue = temp;
     iterations++;
@@ -35,7 +31,7 @@ int fibonacciFor(int n) {
   return curValue;
 }
 
-int fibonacciRec(int n) {
+long fibonacciRec(long n) {
   if (n<=1) {
     return n;
   } else {
@@ -43,4 +39,3 @@ int fibonacciRec(int n) {
     return fibonacciRec(n-1) + fibonacciRec(n-2);
   }
 }
-
