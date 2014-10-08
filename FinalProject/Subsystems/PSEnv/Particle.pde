@@ -34,6 +34,7 @@ class Particle extends Sprite {
   }
 
   void draw() {
+
     pushMatrix();
     translate(pos.x, pos.y);
 
@@ -45,7 +46,7 @@ class Particle extends Sprite {
     //    ellipseMode(CENTER);
     float size = map(age, param.lifespan, 0, 10, 0);
     ellipse(0, 0, size, size);
-//   line(0, 0, vel.x, vel.y);
+   line(0, 0, vel.x, vel.y);
     popMatrix();
   }
 

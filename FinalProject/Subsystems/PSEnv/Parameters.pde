@@ -2,7 +2,11 @@ class PSParameters {
   int emitFor;
   int emitRate;
 
+  PVector position;
+
   ParticleParameters pp;
+  
+  
   
   boolean reset;
 

@@ -12,11 +12,20 @@ void setup() {
   size(640,480,P3D);
   psp = new PSParameters();
   
+  psp.emitFor = 5;
+  psp.emitRate = 20;
+  psp.reset = true;
+  
+  
+  
   psp.pp.mass = 10.0f;
   psp.pp.lifespan = random(40.0f,60.0f);
+  psp.pp.startColor = #f04020;
+  psp.pp.endColor = #000000;
   
   ps = new ParticleSystem(new PVector(width / 2, height / 2), psp);
-      blendMode(ADD);
+  blendMode(ADD);
+  background(0);
 }
 
 void draw() {

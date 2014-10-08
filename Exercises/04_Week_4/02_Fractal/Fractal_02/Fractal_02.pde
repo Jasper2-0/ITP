@@ -16,7 +16,8 @@ void sierpinskiTriangle(PVector p1, PVector p2, PVector p3) {
 }
 
 void subTriangle(int level, PVector p1, PVector p2, PVector p3) {
-
+  noStroke();
+  fill(#204080);
   triangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 
   if (level < depth) {

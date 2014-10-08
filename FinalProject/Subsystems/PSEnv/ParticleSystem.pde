@@ -12,18 +12,26 @@ class ParticleSystem extends Sprite {
 
   boolean alive;
 
-  ParticleSystem(PVector p, PSParameters psp) {
-    pos = p.get();
-    psp = psp;
+  ParticleSystem(PVector pos, PSParameters psp) {
+    this.pos = pos.get();
+    this.psp = psp;
+
+    if (psp.emitFor > 0) {
+      this.emitFor = psp.emitFor;
+    }
+
+    if (psp.emitRate > 0) {
+      this.emitRate = psp.emitRate;
+    }
+    
     particles = new ArrayList<Particle>();
     alive = true;
   }
 
   void emit() {
-
     if (emit < emitFor) {
       for (int i =0; i<emitRate; i++) {
-        particles.add(new Particle(pos, psp.getParticleParameters()));
+        particles.add(new Particle(pos, psp.pp));
       }
       emit++;
     }
@@ -31,7 +39,6 @@ class ParticleSystem extends Sprite {
 
   void update() {
     Iterator<Particle> currentParticle = particles.iterator();
-
     while (currentParticle.hasNext ()) {
       Particle p = currentParticle.next();
       p.update();
@@ -51,6 +58,7 @@ class ParticleSystem extends Sprite {
 
   void reset() {
     emit = 0;
+    pos = new PVector(random(width),random(height));
   }
 
 
@@ -66,7 +74,3 @@ class ParticleSystem extends Sprite {
     }
   }
 }
-
-
-
-
