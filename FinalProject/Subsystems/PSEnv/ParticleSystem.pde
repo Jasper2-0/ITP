@@ -1,16 +1,16 @@
 import java.util.Iterator;
 
 class ParticleSystem extends Sprite {
-
+  
+  boolean alive;
   ArrayList<Particle> particles;
+  ArrayList<PVector> forces;
 
   PSParameters psp;
 
   int emitFor;
   int emitRate;
   int emit = 0;
-
-  boolean alive;
 
   ParticleSystem(PVector pos, PSParameters psp) {
     this.pos = pos.get();
@@ -25,6 +25,7 @@ class ParticleSystem extends Sprite {
     }
     
     particles = new ArrayList<Particle>();
+    forces = new ArrayList<PVector>();
     alive = true;
   }
 
@@ -41,6 +42,7 @@ class ParticleSystem extends Sprite {
     Iterator<Particle> currentParticle = particles.iterator();
     while (currentParticle.hasNext ()) {
       Particle p = currentParticle.next();
+      //p.applyForce(new PVector(0,1));
       p.update();
       if (p.isDead()) {
         currentParticle.remove();
@@ -61,16 +63,9 @@ class ParticleSystem extends Sprite {
     pos = new PVector(random(width),random(height));
   }
 
-
   void draw() {
     for (Particle p : particles) {
       p.draw();
-    }
-  }
-
-  void applyForce(PVector f) {
-    for (Particle p : particles) {
-      p.applyForce(f);
     }
   }
 }

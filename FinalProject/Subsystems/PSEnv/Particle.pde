@@ -1,3 +1,5 @@
+
+
 class Particle extends Sprite {
 
   PVector acc;
@@ -38,8 +40,7 @@ class Particle extends Sprite {
     acc.add(f);
   }
 
-  void update() {
-    
+  void update() { 
     vel.add(acc);
     vel.mult(friction);
     pos.add(vel);
@@ -50,10 +51,26 @@ class Particle extends Sprite {
   void draw() {
     pushMatrix();
     translate(pos.x, pos.y);
-    strokeWeight(2);
+    strokeWeight(3);
+
+    color myCol = color(#ffffff);
     
-    stroke(lerpColor(startColor, endColor, age/lifespan));
-    line(0, 0, vel.x, vel.y);
+    float w = age/lifespan;
+    
+    if(w < 0.33) {
+      myCol = lerpColor(#FFFFFF,#FFFF00,map(w,0.0,0.33,0.0,1.0));
+    }
+    if(w > 0.33 && w < 0.66) {
+      myCol = lerpColor(#FFFF00,#FF0000,map(w,0.33,0.66,0.0,1.0));
+    }
+    if(w > 0.66) {
+      myCol = lerpColor(#FF0000,#000000,map(w,0.66,1.0,0.0,1.0));
+    }
+    
+    //stroke(myCol);
+    //line(0, 0, vel.x, vel.y);
+    fill(myCol);
+    ellipse(0,0,5,5);
     popMatrix();
   }
 
@@ -65,4 +82,3 @@ class Particle extends Sprite {
     }
   }
 }
-

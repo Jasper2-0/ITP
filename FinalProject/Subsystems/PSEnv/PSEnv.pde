@@ -14,10 +14,10 @@ void setup() {
   psp = new PSParameters();
   
   psp.emitFor   = 5;
-  psp.emitRate  = 20;
+  psp.emitRate  = 50;
   psp.reset     = true;
   
-  psp.pp.mass       = 10.0f;
+  psp.pp.mass       = 1.0f;
   psp.pp.friction   = 0.985f;
   psp.pp.lifespan   = 60.0f;
   psp.pp.startColor = #ff4020;
@@ -33,7 +33,6 @@ void setup() {
 void draw() {
   background(0);
   ps.emit();
-  ps.applyForce(new PVector(0,1));
   ps.update();
   ps.draw();
 }
