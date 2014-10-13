@@ -51,7 +51,7 @@ class Particle extends Sprite {
   void draw() {
     pushMatrix();
     translate(pos.x, pos.y);
-    strokeWeight(3);
+    strokeWeight(2);
 
     color myCol = color(#ffffff);
     
@@ -67,10 +67,10 @@ class Particle extends Sprite {
       myCol = lerpColor(#FF0000,#000000,map(w,0.66,1.0,0.0,1.0));
     }
     
-    //stroke(myCol);
-    //line(0, 0, vel.x, vel.y);
-    fill(myCol);
-    ellipse(0,0,5,5);
+    stroke(myCol);
+    line(0, 0, vel.x, vel.y);
+    //fill(myCol);
+    //ellipse(0,0,5,5);
     popMatrix();
   }
 

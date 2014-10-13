@@ -26,8 +26,8 @@ class Player extends Sprite {
     acc = new PVector(0, 0);
     vel = new PVector(0, 0);
 
-    minSpeed = 3.0f;
-    maxSpeed = 5.0f;
+    minSpeed = 9.0f;
+    maxSpeed = 10.0f;
 
     speed = minSpeed;
      
@@ -111,23 +111,22 @@ class Player extends Sprite {
   void draw() {
     blendMode(NORMAL);
     pushMatrix();
+    pushStyle();
     translate(pos.x, pos.y);
     rotateY(banking);
     stroke(0);
     noStroke();
     fill(255);
-    box(20, 40, 20);
+    box(10, 20, 10);
     pushMatrix();
-    translate(-15, 10);
-    box(10,30,10);
+    translate(-7.5, 5);
+    box(5,15,5);
     popMatrix();
     pushMatrix();
-    translate(15, 10);
-    box(10,30,10);
+    translate(7.5, 5);
+    box(5,15,5);
     popMatrix();
-    pushMatrix();
-    translate(0,10,20);
-    popMatrix();
+    popStyle();
     popMatrix();
   }
 }
