@@ -52,6 +52,8 @@ class Arena extends Sprite {
       }
       endShape();
     }
+    strokeWeight(5);
+    rect(0,0,this.width,this.height);
     popStyle();
     popMatrix();
   }

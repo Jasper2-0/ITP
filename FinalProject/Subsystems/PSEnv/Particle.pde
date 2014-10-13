@@ -44,6 +44,13 @@ class Particle extends Sprite {
     vel.add(acc);
     vel.mult(friction);
     pos.add(vel);
+    if(pos.x <= 0 ||pos.x >= width) {
+      vel.x = vel.x * -1.0f;
+    }
+    if(pos.y <= 0 || pos.y >= height) {
+      vel.y = vel.y * -1.0f;
+    }
+    
     acc.mult(0);
     age += 1.0f;
   }
@@ -51,7 +58,7 @@ class Particle extends Sprite {
   void draw() {
     pushMatrix();
     translate(pos.x, pos.y);
-    strokeWeight(2);
+    strokeWeight(1);
 
     color myCol = color(#ffffff);
     

@@ -70,16 +70,16 @@ class Player extends Sprite {
     if (pos.x < 0) {
       pos.x = 0;
     }
-    if (pos.x > width) {
-      pos.x = width;
+    if (pos.x > 1920) {
+      pos.x = 1920;
     }
 
     if (pos.y < 0) {
       pos.y = 0;
     }
 
-    if (pos.y > height) {
-      pos.y = height;
+    if (pos.y > 1024) {
+      pos.y = 1024;
     }
 
    
@@ -117,14 +117,14 @@ class Player extends Sprite {
     stroke(0);
     noStroke();
     fill(255);
-    box(10, 20, 10);
+    box(15, 30, 15);
     pushMatrix();
-    translate(-7.5, 5);
-    box(5,15,5);
+    translate(-11.25, 7.5);
+    box(-7.5,22.5,7.5);
     popMatrix();
     pushMatrix();
-    translate(7.5, 5);
-    box(5,15,5);
+    translate(11.25, 7,5);
+    box(7.5,22.5,7.5);
     popMatrix();
     popStyle();
     popMatrix();
