@@ -14,7 +14,7 @@ void setup() {
   psp = new PSParameters();
   
   psp.emitFor   = 5;
-  psp.emitRate  = 50;
+  psp.emitRate  = 20;
   psp.reset     = true;
   
   psp.pp.mass       = 1.0f;

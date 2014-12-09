@@ -73,7 +73,7 @@ class Particle extends Sprite {
     if(w > 0.66) {
       myCol = lerpColor(#FF0000,#000000,map(w,0.66,1.0,0.0,1.0));
     }
-    
+    //noStroke();
     stroke(myCol);
     line(0, 0, vel.x, vel.y);
     //fill(myCol);

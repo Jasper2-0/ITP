@@ -109,7 +109,6 @@ class Player extends Sprite {
   }
 
   void draw() {
-    blendMode(NORMAL);
     pushMatrix();
     pushStyle();
     translate(pos.x, pos.y);

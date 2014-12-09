@@ -1,0 +1,27 @@
+#N canvas 683 190 667 372 10;
+#X obj 209 113 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 209 203 1;
+#X obj 209 237 +;
+#X floatatom 206 293 5 0 0 0 - - -;
+#X obj 207 324 print;
+#X msg 270 206 0;
+#X obj 184 78 spigot;
+#X floatatom 217 50 5 0 0 0 - - -;
+#X obj 192 1 < 10;
+#X text 231 113 << bang me!;
+#X text 275 137;
+#X obj 209 151 delay 1000;
+#X connect 0 0 11 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 2 1;
+#X connect 3 0 4 0;
+#X connect 3 0 8 0;
+#X connect 5 0 3 0;
+#X connect 5 0 2 1;
+#X connect 6 0 0 0;
+#X connect 7 0 6 1;
+#X connect 8 0 7 0;
+#X connect 11 0 1 0;
+#X connect 11 0 6 0;

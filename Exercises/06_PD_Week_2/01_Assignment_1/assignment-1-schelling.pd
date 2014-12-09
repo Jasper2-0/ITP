@@ -1,0 +1,92 @@
+#N canvas 405 64 967 733 10;
+#X obj -59 299 metro;
+#X obj -59 265 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X floatatom -58 71 5 0 0 0 - - -;
+#X text -13 69 bpm;
+#X obj -58 102 t b f;
+#X obj -57 164 60000;
+#X obj -32 215 /;
+#X obj -59 337 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text -131 543 1997 called \, they want their rimclick back! https://www.youtube.com/watch?v=8ClZ2yMrcmI&t=12
+;
+#X msg -12 416 open RIM127.WAV;
+#X obj -12 504 dac~;
+#X msg -59 415 start;
+#X obj -59 368 t b b;
+#X obj -12 471 readsf~ 2;
+#X text -148 264 toggle me >;
+#X obj 318 330 hradio 15 1 0 3 empty empty empty 0 -8 0 10 -262144
+-1 -1 0;
+#X obj 318 364 route 0 1 2;
+#X obj 291 235 metro;
+#X obj 291 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X floatatom 305 102 5 0 0 0 - - -;
+#X text 346 101 bpm;
+#X obj 306 128 t b f;
+#X obj 294 161 60000;
+#X obj 318 198 /;
+#X obj 291 273 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 202 200 toggle me >;
+#X obj 318 394 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 339 394 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 360 395 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 291 298 t b b;
+#X obj 317 593 dac~;
+#X obj 317 560 readsf~ 2;
+#X msg 318 442 open BTAA0D7.WAV;
+#X msg 339 465 open RIM127.WAV;
+#X msg 360 495 open ST0T3SA.WAV;
+#X msg 291 495 start;
+#X text 373 328 < select sample;
+#X msg 305 70 180;
+#X obj 305 30 loadbang;
+#X obj 53 13 loadbang;
+#X msg 53 53 130;
+#X text 233 620 1996 called and they want their hardcore back... https://www.youtube.com/watch?v=WSQ5EK19vtU
+;
+#X connect 0 0 7 0;
+#X connect 1 0 0 0;
+#X connect 2 0 4 0;
+#X connect 4 0 5 0;
+#X connect 4 1 6 1;
+#X connect 5 0 6 0;
+#X connect 6 0 0 1;
+#X connect 7 0 12 0;
+#X connect 9 0 13 0;
+#X connect 11 0 13 0;
+#X connect 12 0 11 0;
+#X connect 12 1 9 0;
+#X connect 13 0 10 0;
+#X connect 15 0 16 0;
+#X connect 16 0 26 0;
+#X connect 16 1 27 0;
+#X connect 16 2 28 0;
+#X connect 17 0 24 0;
+#X connect 18 0 17 0;
+#X connect 19 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 23 1;
+#X connect 22 0 23 0;
+#X connect 23 0 17 1;
+#X connect 24 0 29 0;
+#X connect 26 0 32 0;
+#X connect 27 0 33 0;
+#X connect 28 0 34 0;
+#X connect 29 0 35 0;
+#X connect 29 1 15 0;
+#X connect 31 0 30 0;
+#X connect 32 0 31 0;
+#X connect 33 0 31 0;
+#X connect 34 0 31 0;
+#X connect 35 0 31 0;
+#X connect 37 0 19 0;
+#X connect 38 0 37 0;
+#X connect 39 0 40 0;
+#X connect 40 0 2 0;
