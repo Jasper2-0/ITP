@@ -88,13 +88,15 @@
 #X obj 637 422 t b b;
 #X msg 521 466 open HHCD4.WAV;
 #X obj 281 598 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 9000 1;
+-1 -1 12700 1;
 #X floatatom 278 622 5 0 0 0 - - -;
 #X obj 256 646 *~;
 #X text 33 6 ok \, turns out i'm not nuts. this is the closest i got
 to fixing it. use [qwerty] http://lists.puredata.info/pipermail/pd-dev/2004-11/003278.html
 ;
 #X text 426 594 < volume control;
+#X obj 429 546 loadbang;
+#X msg 355 573 0.75;
 #X connect 0 0 8 0;
 #X connect 1 0 3 0;
 #X connect 1 1 2 0;
@@ -190,3 +192,5 @@ to fixing it. use [qwerty] http://lists.puredata.info/pipermail/pd-dev/2004-11/0
 #X connect 78 0 79 0;
 #X connect 79 0 80 1;
 #X connect 80 0 60 0;
+#X connect 83 0 84 0;
+#X connect 84 0 78 0;
