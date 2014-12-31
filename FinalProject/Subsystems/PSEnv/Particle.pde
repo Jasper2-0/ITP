@@ -1,5 +1,3 @@
-
-
 class Particle extends Sprite {
 
   PVector acc;
@@ -20,29 +18,15 @@ class Particle extends Sprite {
 
   Particle(PVector pos, ParticleParameters pp) {
 
-    this.mass = pp.mass;
-    this.friction = pp.friction;
     this.lifespan = pp.lifespan;
 
-    this.startColor = pp.startColor;
-    this.endColor = pp.endColor;
-
     this.pos = pos.get();
-    this.acc = new PVector (0, 0);
     this.vel = new PVector (random(-1, 1), random(-1, 1));
 
     vel.setMag(random(1, 10));
   }
 
-  void applyForce(PVector force) {
-    PVector f = force.get();
-    f.div(mass);
-    acc.add(f);
-  }
-
   void update() { 
-    vel.add(acc);
-    vel.mult(friction);
     pos.add(vel);
     if(pos.x <= 0 ||pos.x >= width) {
       vel.x = vel.x * -1.0f;
@@ -51,14 +35,13 @@ class Particle extends Sprite {
       vel.y = vel.y * -1.0f;
     }
     
-    acc.mult(0);
     age += 1.0f;
   }
 
   void draw() {
     pushMatrix();
     translate(pos.x, pos.y);
-    strokeWeight(1);
+    strokeWeight(2);
 
     color myCol = color(#ffffff);
     
@@ -76,8 +59,6 @@ class Particle extends Sprite {
     //noStroke();
     stroke(myCol);
     line(0, 0, vel.x, vel.y);
-    //fill(myCol);
-    //ellipse(0,0,5,5);
     popMatrix();
   }
 

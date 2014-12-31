@@ -1,22 +1,23 @@
 import java.util.Iterator;
 
 Player p;
+Target t;
 Arena a;
+
 
 PShader lightShader;
 
 boolean debug;
 
 void setup() {
-  size(1280, 720, P3D);
+  size(1280, 720,P3D);
   p = new Player();
+  t = new Target();
   a = new Arena(1920,1024,30,16);
   a.pos.x = 0;
   a.pos.y = 0;
-  a.pos.z = -20;
-  lightShader = loadShader("shaders/fs_ppl.glsl", "shaders/vs_ppl.glsl");
+  a.pos.z = 0;
   
-  printCamera();
 }
 
 void update() {
@@ -29,11 +30,13 @@ void draw() {
   background(0);
   update();
   lights();
-  camera(p.pos.x,p.pos.y,(height/2.0) / tan(PI*30.0 / 180.0),p.pos.x,p.pos.y,0,0,1,0);
   blendMode(ADD);
   a.draw();
   blendMode(NORMAL);
   p.draw();
+  noFill();
+  stroke(255,255,0);
+  line(p.pos.x,p.pos.y,mouseX,mouseY);
 }
 
 void debugDraw() {
@@ -84,4 +87,3 @@ void keyReleased() {
     }
   }
 }
-

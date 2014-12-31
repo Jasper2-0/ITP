@@ -2,12 +2,12 @@ class Player extends Sprite {
 
   PVector acc;
   PVector vel;
-  
+
   float minSpeed;
   float maxSpeed;
 
   float speed;
-  
+
   float banking;
   float minBank;
   float maxBank;
@@ -30,8 +30,8 @@ class Player extends Sprite {
     maxSpeed = 10.0f;
 
     speed = minSpeed;
-     
-     
+
+
     banking = 0.0f;
     minBank = -0.6f;
     maxBank = 0.6f;
@@ -49,19 +49,19 @@ class Player extends Sprite {
     }
     if (_left) {
       acc.x = acc.x - speed;
-      
-      if(banking > minBank) {
+
+      if (banking > minBank) {
         banking -= bankStep;
       }
     }
     if (_right) {
       acc.x = acc.x + speed;
       if (banking < maxBank) {
-        
+
         banking += bankStep;
       }
     }
-    
+
     vel.add(acc);
     vel.limit(maxSpeed);
     pos.add(vel);
@@ -82,30 +82,28 @@ class Player extends Sprite {
       pos.y = 1024;
     }
 
-   
-   
-   if (rollBack) {
-      if(banking > 0.0f) {
+
+
+    if (rollBack) {
+      if (banking > 0.0f) {
         banking -= bankStep;
-        if(banking <= 0.0f) {
+        if (banking <= 0.0f) {
           rollBack=false;
           banking = 0.0f;
         }
       } 
-      if(banking < 0.0) {
+      if (banking < 0.0) {
         banking += bankStep;
-        if(banking >=0.0) {
+        if (banking >=0.0) {
           rollBack = false;
           banking = 0.0f;
         }
       }
     }
     acc.set(0, 0, 0);
-    
   }
-  
+
   void fire() {
-  
   }
 
   void draw() {
@@ -119,14 +117,13 @@ class Player extends Sprite {
     box(15, 30, 15);
     pushMatrix();
     translate(-11.25, 7.5);
-    box(-7.5,22.5,7.5);
+    box(-7.5, 22.5, 7.5);
     popMatrix();
     pushMatrix();
-    translate(11.25, 7,5);
-    box(7.5,22.5,7.5);
+    translate(11.25, 7, 5);
+    box(7.5, 22.5, 7.5);
     popMatrix();
     popStyle();
     popMatrix();
   }
 }
-
