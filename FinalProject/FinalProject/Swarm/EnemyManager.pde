@@ -13,7 +13,12 @@ class EnemyManager {
     Iterator<Enemy> currentEnemy = enemies.iterator();
     while (currentEnemy.hasNext ()) {
       Enemy e = currentEnemy.next();
+      e.applyBehaviors(enemies);
       e.update();
+      e.borders();
+      
+      
+      
       
       if(e.state == 1) {
         currentEnemy.remove();

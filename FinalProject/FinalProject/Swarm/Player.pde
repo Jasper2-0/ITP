@@ -13,12 +13,11 @@ class Player extends GameObject {
   boolean _left;
   boolean _right;
 
-
-  ParticleSystem exhaust;
-
-
   float prevRotation = 0.0;
   float rotateStep = 7.5;
+
+  ParticleExhaust  ep;
+  ParticleSystem exhaust;
 
 
   Player(float x, float y) {
@@ -29,19 +28,25 @@ class Player extends GameObject {
     loadShape("player.txt");
     updateBounds();
 
-/*    PVector eOrigin = getExhaustOrigin();
+    ep = new ParticleExhaust(0.0, 0.0, 60.0, this.vel.heading());
 
-    ParticleSpark p = new ParticleSpark(this.x+eOrigin.x, this.y+eOrigin.y, 60.0);
-    exhaust = new ParticleSystem(eOrigin.x, eOrigin.y, p);
+    exhaust = new ParticleSystem(x+getExhaustOrigin().x, y+getExhaustOrigin().y, ep);
 
-    exhaust.emitFor = 5;
-    exhaust.emitRate = 10;
 
-    pm.addParticlySystem(exhaust);*/
+    exhaust.emitFor = 1;
+    exhaust.emitRate = 5;
   }
 
 
   void update() {
+
+    if (!_up || !_down) {
+      exhaust.emitFor = 0;
+    }
+    if (_up || _down) {
+      exhaust.reset();
+      exhaust.emitFor = 1;
+    }
 
     if (_up) {
       speed = speedStep;
@@ -66,7 +71,6 @@ class Player extends GameObject {
 
     clipRotation();
 
-
     for (PVector p : points) {
       float rot = rotation - prevRotation;
       p.rotate(radians(rot));
@@ -89,6 +93,11 @@ class Player extends GameObject {
     }
 
     this.add(vel);
+
+    exhaust.x = x+getExhaustOrigin().x;
+    exhaust.y = y+getExhaustOrigin().y;
+    exhaust.update();
+
 
     // reset
     speed = 0.0;
@@ -113,6 +122,7 @@ class Player extends GameObject {
     return points.get(5);
   }
 
+
   void draw() {
     pushMatrix();
     translate(x, y);
@@ -129,11 +139,15 @@ class Player extends GameObject {
     noFill();
     stroke(255, 0, 0);
     ellipse(aim.x, aim.y, 5, 5);
-
     if (debug) {
       drawDebug();
     }
     popMatrix();
+/*
+    pushMatrix();
+    translate(exhaust.x, exhaust.y);
+    exhaust.draw();    
+    popMatrix();*/
   }
 }
 

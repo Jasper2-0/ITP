@@ -1,5 +1,5 @@
 interface IParticle {
-  
+
   void update();
   void draw();
   Particle copy();
@@ -11,6 +11,8 @@ class Particle extends GameObject implements IParticle {
 
   float age;
   float lifespan;
+
+  float direction;
 
   Particle() {
   }
@@ -105,21 +107,21 @@ class ParticleExplosion extends Particle implements IParticle {
 class ParticleSpark extends Particle implements IParticle {
 
   float direction[];
-  
+
   ParticleSpark(float x, float y, float lifespan, float[] direction) {
     super(x, y);
 
     this.age = 0.0;
     this.lifespan = lifespan;
     this.direction = direction;
-    
+
     this.vel = new PVector (random(direction[0], direction[1]), random(direction[2], direction[3]));
-    
+
     this.vel.setMag(random(1, 10));
   }
 
   ParticleSpark(ParticleSpark p) {
-    this(p.x, p.y, p.lifespan,p.direction);
+    this(p.x, p.y, p.lifespan, p.direction);
   }
 
   void update() { 
@@ -157,3 +159,61 @@ class ParticleSpark extends Particle implements IParticle {
     return "[ParticleSpark]";
   }
 }
+
+class ParticleExhaust extends Particle implements IParticle {
+
+
+
+  ParticleExhaust(float x, float y, float lifespan, float direction) {
+    super(x, y);
+
+    this.age = 0.0;
+    this.lifespan = lifespan;
+    this.direction = direction;
+
+
+    this.vel = new PVector (1,1);
+    this.vel.setMag(random(1, 10));
+  }
+
+  ParticleExhaust(ParticleExhaust p) {
+    this(p.x, p.y, p.lifespan, p.direction);
+  }
+
+  void update() {
+
+    this.add(vel);
+    age++;
+  }
+
+  void draw() {
+    pushMatrix();
+    translate(this.x, this.y);
+    noFill();
+    strokeWeight(2);
+
+    color particleColor = color(#ffffff);
+
+    float w = age/lifespan;
+
+    if (w < 0.5) {
+      particleColor = lerpColor(#FFFFFF, #FFFF00, map(w, 0.0, 0.33, 0.0, 1.0));
+    }
+    if (w > 0.5) {
+      particleColor = lerpColor(#FFFF00, #000000, map(w, 0.66, 1.0, 0.0, 1.0));
+    }
+
+    stroke(particleColor);
+    line(0, 0, vel.x, vel.y);
+    popMatrix();
+  }
+
+  ParticleExhaust copy() {
+    return new ParticleExhaust(this);
+  }
+
+  String toString() {
+    return "[ParticleExhaust]";
+  }
+}
+

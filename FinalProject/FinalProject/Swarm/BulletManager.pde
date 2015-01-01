@@ -8,7 +8,9 @@ class BulletManager {
   GameObject a;
 
   int firingRate = 5;
-  int firingMode = 0; // 0 = 1 bullet / 2 = 2 bullet etc
+  int firingMode = 1; // 0 = 1 bullet / 2 = 2 bullet etc
+
+  float firingAngleOffset = 2.5;
 
   int shootCounter = 0;
   int collisionCount;
@@ -24,8 +26,16 @@ class BulletManager {
   void update() {
     if (_fire) {
       if (shootCounter % firingRate == 0) {
-        Bullet b = new Bullet(bulletOrigin.x, bulletOrigin.y, aim);
-        bullets.add(b);
+        for (int i = 0; i< firingMode; i++) {
+
+          float aimAngle = degrees(aim.heading());
+          float start = (float) i * (firingMode*firingAngleOffset) / firingMode; 
+
+          PVector newAim = PVector.fromAngle(radians(aimAngle+start));
+
+          Bullet b = new Bullet(bulletOrigin.x, bulletOrigin.y, newAim);
+          bullets.add(b);
+        }
         resetCounter();
       }
       shootCounter += 1;
@@ -100,7 +110,7 @@ class BulletManager {
 
         ArrayList<PVector> gShape = b.getGlobalShape();
       for (Enemy e : em.enemies) {
-        collisionCount++;
+        //collisionCount++;
         if (e.getGlobalBounds().intersectsRect(b.getGlobalBounds())) {
           for (PVector p : gShape) {
             if (e.containsPoint(p)) {
@@ -120,6 +130,11 @@ class BulletManager {
         bullets.remove(i);
       }
     }
+    
+    if(bullets.size() == 0) {
+      collisionCount = 0;
+    }
+    
   }
 
   void draw() {
