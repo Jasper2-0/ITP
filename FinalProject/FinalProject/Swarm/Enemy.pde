@@ -41,28 +41,30 @@ class Enemy extends GameObject {
     acc.add(f);
   }
 
-  void borders() {
+  PVector borders() {
     PVector d = null;
     if (this.x >= a.getGlobalBounds().getRight()-this.width) {
       d = new PVector(-maxSpeed, vel.y);
     }
 
     if (this.x <= a.getGlobalBounds().getLeft()+this.width) {
-      d = new PVector(maxSpeed,vel.y);
+      d = new PVector(maxSpeed, vel.y);
     }
     if (this.y >= a.getGlobalBounds().getBottom()-this.height) {
-      d = new PVector(vel.x,-maxSpeed);
+      d = new PVector(vel.x, -maxSpeed);
     }
     if (this.y <= a.getGlobalBounds().getTop()+this.height) {
-      d = new PVector(vel.x,maxSpeed);
+      d = new PVector(vel.x, maxSpeed);
     }
-    
+
     if (d!= null) {
       d.normalize();
       d.mult(maxSpeed);
-      PVector s = PVector.sub(d,vel);
+      PVector s = PVector.sub(d, vel);
       s.limit(maxForce);
-      applyForce(s);
+      return s;
+    } else {
+      return new PVector(0.0, 0.0);
     }
   }
 
@@ -82,6 +84,7 @@ class Enemy extends GameObject {
     applyForce(alignForce);
     applyForce(cohesionForce);
     applyForce(seekForce);
+    applyForce(borders());
   }
 
   PVector seek(PVector target) {

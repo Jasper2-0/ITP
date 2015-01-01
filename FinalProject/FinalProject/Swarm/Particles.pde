@@ -140,10 +140,10 @@ class ParticleSpark extends Particle implements IParticle {
     float w = age/lifespan;
 
     if (w < 0.5) {
-      particleColor = lerpColor(#FFFFFF, #FFFF00, map(w, 0.0, 0.33, 0.0, 1.0));
+      particleColor = lerpColor(#FFFFFF, #FFFF00, map(w, 0.0, 0.5, 0.0, 1.0));
     }
     if (w > 0.5) {
-      particleColor = lerpColor(#FFFF00, #000000, map(w, 0.66, 1.0, 0.0, 1.0));
+      particleColor = lerpColor(#FFFF00, #000000, map(w, 0.5, 1.0, 0.0, 1.0));
     }
 
     stroke(particleColor);

@@ -46,10 +46,13 @@ int arenaRows = 32;
 int arenaCols = 24;
 
 Enemy e;
+EnemySpawner es;
 
 EnemyManager em;
 BulletManager bm;
 ParticleManager pm;
+
+ScoreManager sm;
 
 boolean debug = false;
 boolean stats = true;
@@ -80,16 +83,16 @@ void setup() {
 
   // initalize EnemyManager
   em = new EnemyManager();
-
-  for (int i = 0; i<10; i++) {
-    for (int j = 0; j<10; j++) {
-
-      // initalize Enemy
-      e = new Enemy(center.x - (width / 4)+i*60, -200+ center.y+j*60);
-      e.setArena(a);
-      em.addEnemy(e);
-    }
-  }
+  em.setArena(a);
+  
+  es = new EnemySpawner(center.x,center.y);
+  es.setArena(a);
+  
+  em.setSpawner(es);
+  
+  // initalize ScoreManager
+  
+  sm = new ScoreManager();
 }
 
 void update() {
@@ -113,6 +116,8 @@ void update() {
 
   // update the particle manager
   pm.update();
+  
+  sm.update();
 }
 
 void draw() {
@@ -125,6 +130,7 @@ void draw() {
   blendMode(ADD);
   a.draw();
   pm.draw();
+  sm.draw();
 
   blendMode(NORMAL);
   p.draw();
@@ -138,6 +144,9 @@ void draw() {
     text("BulletCount: "+bm.getBulletCount(), 5, 24);
     text("PSCount: "+pm.getParticleSystemCount(), 5, 36);
     text("BulletCollisionCount: "+bm.getCollisionCount(), 5, 48);
+    text("EnemyCount: "+em.getEnemyCount(),5,60);
+    text("Score: "+sm.getScore(),5,72);
+    text("EnemyKills: "+sm.getEnemyKills(),5,84);
   }
 }
 
