@@ -108,7 +108,7 @@ class BulletManager {
 
       // enemy collision detection
 
-        ArrayList<PVector> gShape = b.getGlobalShape();
+      ArrayList<PVector> gShape = b.getGlobalShape();
       for (Enemy e : em.enemies) {
         //collisionCount++;
         if (e.getGlobalBounds().intersectsRect(b.getGlobalBounds())) {
@@ -130,11 +130,10 @@ class BulletManager {
         bullets.remove(i);
       }
     }
-    
-    if(bullets.size() == 0) {
+
+    if (bullets.size() == 0) {
       collisionCount = 0;
     }
-    
   }
 
   void draw() {

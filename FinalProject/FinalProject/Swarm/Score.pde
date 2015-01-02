@@ -1,37 +1,37 @@
 class Score extends GameObject {
-  
+
   String scoreValue = "";
-  
+
   float age;
   float lifespan;
-  
-  Score(float x, float y){
+
+  Score(float x, float y) {
     this.x = x;
     this.y = y;
-    
+
     this.age = 0;
     this.lifespan = 30;
   }
-  
+
   void update() {
     this.age++;
   }
-  
-    boolean isDead() {
+
+  boolean isDead() {
     if (age <= lifespan) {
       return false;
     } else {
       return true;
     }
   }
-  
+
   void setScoreValue(int s) {
     scoreValue = str(s);
   }
-  
+
   void draw() {
     pushMatrix();
-    translate(this.x,this.y);
+    translate(this.x, this.y);
 
     color textColor = color(#ffffff);
 
@@ -48,11 +48,12 @@ class Score extends GameObject {
     }
 
     fill(textColor);
-  
+
     textSize(24);
-    text(scoreValue,0,0);
+    text(scoreValue, 0, 0);
     fill(#FFFFFF);
     textSize(12);
     popMatrix();
   }
 }
+

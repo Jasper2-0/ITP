@@ -69,6 +69,20 @@ class ParticleManager {
     this.addParticleSystem(explosion);
   }
 
+  void createPlayerExplosion(PVector origin) {
+    Particle explosionParticle = new ParticleExplosion(origin.x, origin.y, 60.0);
+    
+    explosionParticle.player = true;
+    
+    ParticleSystem explosion = new ParticleSystem(origin.x, origin.y, explosionParticle);
+
+    explosion.emitFor = 5;
+    explosion.emitRate = 20;
+
+    this.addParticleSystem(explosion);
+  }
+
+
   void addParticleSystem(ParticleSystem ps) {
     psList.add(ps);
   }

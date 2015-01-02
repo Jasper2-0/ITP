@@ -5,6 +5,8 @@ class GameObject extends PVector {
   int state = 0; // 0 = in play // 1 = to be removed // 2 = dying etc
 
   ArrayList<PVector> points;
+
+  
   String[] shapeData;
   Rect bounds;
 
@@ -30,14 +32,14 @@ class GameObject extends PVector {
     }
   }
 
-  void loadShape(String filename) {
+  void loadShape(String filename, ArrayList<PVector> target) {
 
     shapeData = loadStrings(filename);
     for (int i = 0; i<shapeData.length; i++) {
       String[] cells = shapeData[i].split(",");
       float sx = parseFloat(cells[1]);
       float sy = parseFloat(cells[2]);
-      points.add(new PVector(sx, sy));
+      target.add(new PVector(sx, sy));
     }
   }
 

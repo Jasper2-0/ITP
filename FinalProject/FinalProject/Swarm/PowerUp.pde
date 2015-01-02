@@ -1,4 +1,6 @@
-class EnemySpawner extends GameObject {
+class PowerUp extends GameObject {
+
+  ArrayList<PVector> pointsB;
 
   PVector acc;
 
@@ -7,27 +9,35 @@ class EnemySpawner extends GameObject {
 
   float wanderAngle;
 
-  int emitFor;
-  int emitRate;
-  int emit = 0;
+  float age;
+  float lifespan;
 
-  boolean spawn = false;
-  int spawnInterval = 300;
-
-  EnemySpawner(float x, float y) {
+  PowerUp(float x, float y) {
     this.x = x;
     this.y = y;
 
-    this.width = 10;
-    this.height = 10;
+    pointsB = new ArrayList<PVector>();
 
-    maxSpeed = 2;
+    loadShape("powerup_a.txt", points);
+    loadShape("powerup_b.txt", pointsB);
+    updateBounds();
+
+    maxSpeed = 1;
     maxForce = 0.05;
 
     acc = new PVector(0, 0);
     vel = new PVector(0, -2);
 
-    emitFor = 5;
+    this.age = 0;
+    this.lifespan = 180;
+  }
+
+  boolean isDead() {
+    if (age <= lifespan) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   void update() {
@@ -48,42 +58,28 @@ class EnemySpawner extends GameObject {
     if (this.y <= a.getGlobalBounds().getTop()+this.height/2) {
       y = a.getGlobalBounds().getTop()+this.height/2;
     }
-
-    if (frameCount == 60) {
-      spawn = true;
-    }
-
-    if (frameCount % spawnInterval == 0) {
-      spawn = true;
-    }
-    if (spawn) {
-      spawnEnemies();
-    }
-  }
-
-  void spawnEnemies() {
-    if (emit < emitFor) {
-      if (frameCount % 10 == 0) {
-        e = new Enemy(this.x, this.y);
-        e.setArena(a);
-        em.addEnemy(e);
-        emit++;
-      }
-    } else {
-      spawn = false;
-      emit = 0;
-    }
+    this.age++;
   }
 
   void applyBehaviors() {
     PVector avoidForce = avoid(bm.bullets);
+
+    PVector pp = new PVector(p.x, p.y);
+
+    PVector seekForce = seek(pp);
+    seekForce.mult(1.0);
+    
     applyForce(avoidForce);
     applyForce(wander());
+    applyForce(seekForce);
   }
 
   void applyForce(PVector f) {
     acc.add(f);
   }
+
+
+
 
   PVector avoid(ArrayList<Bullet> bullets) {
     float desiredSeparation = this.height * 2;
@@ -141,22 +137,44 @@ class EnemySpawner extends GameObject {
     return s;
   }
 
-  void draw() {
-    if (spawn) {
-      pushMatrix();
-      translate(this.x, this.y);
-      noFill();
-      stroke(#FF00FF);
-      ellipse(0, 0, 10, 10);
-      ellipse(0, 0, 20, 20);
-      ellipse(0, 0, 30, 30);
 
-      if (debug) {
-        drawDebug();
-        text(a.getGlobalBounds().getRight(), this.width, this.height+40);
-      }
-      popMatrix();
+  void draw() {
+    pushMatrix();
+    translate(x, y);
+    noFill();
+
+    float w = age/lifespan;
+
+    color pColor = color(#ffffff);
+
+    if (w < 0.1) {
+      pColor = lerpColor(#FFFFFF, #00FF00, map(w, 0.0, 0.1, 0.0, 1.0));
     }
+    if (w > 0.1 && w < 0.9) {
+      pColor = lerpColor(#00FF00, #00FF00, map(w, 0.1, 0.9, 0.0, 1.0));
+    }
+    if (w > 0.9) {
+      pColor = lerpColor(#00FF00, #000000, map(w, 0.9, 1.0, 0.0, 1.0));
+    }
+
+
+    stroke(pColor);
+    strokeWeight(2);
+
+
+    beginShape();
+    for (PVector p : points) {
+      vertex(p.x, p.y);
+    }
+    endShape(CLOSE);
+
+    beginShape();
+    for (PVector p : pointsB) {
+      vertex(p.x, p.y);
+    }
+    endShape(CLOSE);
+
+    popMatrix();
   }
 }
 

@@ -3,10 +3,10 @@ class Player extends GameObject {
 
   PVector aim;
 
-  float minSpeed = -7.5;
-  float maxSpeed = 7.5;
+  float minSpeed = -6.0;
+  float maxSpeed = 6.0;
   float speed = 0.0;
-  float speedStep = 5.0;
+  float speedStep = 3.0;
 
   boolean _up;
   boolean _down;
@@ -19,13 +19,19 @@ class Player extends GameObject {
   ParticleExhaust  ep;
   ParticleSystem exhaust;
 
+  int lives = 3;
+
+  float maxForce = 0.1;
+
+  int resetCounter = -1;
+  int moveCounter = -1;
 
   Player(float x, float y) {
 
     this.x = x;
     this.y = y;
 
-    loadShape("player.txt");
+    loadShape("player.txt", points);
     updateBounds();
 
     ep = new ParticleExhaust(0.0, 0.0, 60.0, this.vel.heading());
@@ -39,6 +45,30 @@ class Player extends GameObject {
 
 
   void update() {
+
+    if (resetCounter > -1 ) {
+      resetCounter--;
+      if ( moveCounter > -1) {
+        moveCounter--;
+        _up = false;
+        _down = false;
+        _left=false;
+        _right = false;
+        bm._fire = false;
+      }
+    }
+
+    if (moveCounter > 0) {
+      PVector d = PVector.sub(center, this);
+
+      d.div(moveCounter);
+      this.add(d);
+    }
+    if (moveCounter == 0) {
+      p.state = 0;
+    }
+
+
 
     if (!_up || !_down) {
       exhaust.emitFor = 0;
@@ -98,6 +128,59 @@ class Player extends GameObject {
     exhaust.y = y+getExhaustOrigin().y;
     exhaust.update();
 
+    if (p.state == 0) {
+      ArrayList<PVector> gShape = this.getGlobalShape();
+      for (PowerUp pu : em.powerups) {
+
+        if (pu.getGlobalBounds().intersectsRect(this.getGlobalBounds())) {
+          for (PVector pPoint : gShape) {
+            if (pu.containsPoint(pPoint)) {
+              pu.state = 1;
+
+              sm.addPowerUp();
+
+              Score s = new Score(pu.x, pu.y);
+
+              s.lifespan = 30;
+
+              s.scoreValue = "POWER UP!";
+
+
+              if (sm.getPowerUps() % 10 == 0) {
+                s.scoreValue = "BOOM!";
+                bm.firingMode++;
+              }
+
+
+              if (sm.getPowerUps() > 0 && sm.getPowerUps() % 5 == 0) {
+                this.speedStep += 0.25;
+                s.scoreValue = "SPEED";
+              }
+
+              sm.addScore(s);
+            };
+          }
+        }
+      }
+
+      for (Enemy e : em.enemies) {
+        if (e.getGlobalBounds().intersectsRect(this.getGlobalBounds())) {
+          for (PVector pPoint : gShape) {
+            if (e.containsPoint(pPoint)) {
+              p.state = 1;
+              e.state = 1;
+
+              lives--;
+
+              resetCounter = 180;
+              moveCounter = 45;
+              pm.createExplosion(new PVector(e.x, e.y));
+            };
+          }
+        }
+      }
+    }
+
 
     // reset
     speed = 0.0;
@@ -122,32 +205,43 @@ class Player extends GameObject {
     return points.get(5);
   }
 
+  int getLives() {
+    return this.lives;
+  }
+
+  void addLife() {
+    if (lives < 3) {
+      lives++;
+    }
+  }
 
   void draw() {
-    pushMatrix();
-    translate(x, y);
-    noFill();
-    stroke(255);
-    strokeWeight(2);
+    if (moveCounter == -1) {
+      pushMatrix();
+      translate(x, y);
+      noFill();
+      stroke(255);
+      strokeWeight(2);
 
-    beginShape();
-    for (PVector p : points) {
-      vertex(p.x, p.y);
-    }
-    endShape(CLOSE);
+      beginShape();
+      for (PVector p : points) {
+        vertex(p.x, p.y);
+      }
+      endShape(CLOSE);
 
-    noFill();
-    stroke(255, 0, 0);
-    ellipse(aim.x, aim.y, 5, 5);
-    if (debug) {
-      drawDebug();
+      noFill();
+      stroke(255, 0, 0);
+      ellipse(aim.x, aim.y, 5, 5);
+      if (debug) {
+        drawDebug();
+      }
+      popMatrix();
     }
-    popMatrix();
-/*
+    /*
     pushMatrix();
-    translate(exhaust.x, exhaust.y);
-    exhaust.draw();    
-    popMatrix();*/
+     translate(exhaust.x, exhaust.y);
+     exhaust.draw();    
+     popMatrix();*/
   }
 }
 

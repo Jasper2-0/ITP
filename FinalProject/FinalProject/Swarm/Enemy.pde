@@ -26,7 +26,7 @@ class Enemy extends GameObject {
     maxSpeed = 4;
     maxForce = 0.1;
 
-    loadShape("enemy.txt");
+    loadShape("enemy.txt",points);
     updateBounds();
   }
 
@@ -79,6 +79,10 @@ class Enemy extends GameObject {
     alignForce.mult(1.0);
     cohesionForce.mult(0.5);
     seekForce.mult(1.0);
+    
+    if(p.state == 1) {
+      seekForce.mult(-1.0);
+    }
 
     applyForce(sepForce);
     applyForce(alignForce);

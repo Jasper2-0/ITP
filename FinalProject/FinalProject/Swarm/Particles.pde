@@ -14,12 +14,16 @@ class Particle extends GameObject implements IParticle {
 
   float direction;
 
+  boolean player;
+
   Particle() {
   }
 
   Particle(Particle p) {
     this.age = p.age;
     this.lifespan = p.lifespan;
+
+    this.player=false;
   }
 
   Particle(float x, float y) {
@@ -51,6 +55,7 @@ class Particle extends GameObject implements IParticle {
 }
 
 class ParticleExplosion extends Particle implements IParticle {
+
   ParticleExplosion(float x, float y, float lifespan) {
     super(x, y);
 
@@ -74,21 +79,42 @@ class ParticleExplosion extends Particle implements IParticle {
     pushMatrix();
     translate(this.x, this.y);
     noFill();
-    strokeWeight(2);
-
     color particleColor = color(#ffffff);
+    if (player) {
+      strokeWeight(4);
 
-    float w = age/lifespan;
+      particleColor = color(#ffffff);
 
-    if (w < 0.33) {
-      particleColor = lerpColor(#FFFFFF, #00FFFF, map(w, 0.0, 0.33, 0.0, 1.0));
+      float w = age/lifespan;
+
+      if (w < 0.33) {
+        particleColor = lerpColor(#FFFFFF, #FFFF00, map(w, 0.0, 0.33, 0.0, 1.0));
+      }
+      if (w > 0.33 && w < 0.66) {
+        particleColor = lerpColor(#FFFF00, #FF0000, map(w, 0.33, 0.66, 0.0, 1.0));
+      }
+      if (w > 0.66) {
+        particleColor = lerpColor(#FF0000, #000000, map(w, 0.66, 1.0, 0.0, 1.0));
+      }
+    } else {
+      strokeWeight(2);
+
+
+
+      float w = age/lifespan;
+
+      if (w < 0.33) {
+        particleColor = lerpColor(#FFFFFF, #00FFFF, map(w, 0.0, 0.33, 0.0, 1.0));
+      }
+      if (w > 0.33 && w < 0.66) {
+        particleColor = lerpColor(#008888, #002222, map(w, 0.33, 0.66, 0.0, 1.0));
+      }
+      if (w > 0.66) {
+        particleColor = lerpColor(#002222, #000000, map(w, 0.66, 1.0, 0.0, 1.0));
+      }
     }
-    if (w > 0.33 && w < 0.66) {
-      particleColor = lerpColor(#008888, #002222, map(w, 0.33, 0.66, 0.0, 1.0));
-    }
-    if (w > 0.66) {
-      particleColor = lerpColor(#002222, #000000, map(w, 0.66, 1.0, 0.0, 1.0));
-    }
+
+
 
     stroke(particleColor);
     line(0, 0, vel.x, vel.y);
@@ -172,7 +198,7 @@ class ParticleExhaust extends Particle implements IParticle {
     this.direction = direction;
 
 
-    this.vel = new PVector (1,1);
+    this.vel = new PVector (1, 1);
     this.vel.setMag(random(1, 10));
   }
 

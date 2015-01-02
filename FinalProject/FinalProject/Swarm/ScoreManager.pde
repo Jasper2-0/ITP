@@ -6,14 +6,19 @@ class ScoreManager {
   long score;
 
   int enemyKills;
+  int powerups;
 
   int multiplier = 1;
 
   int inc = 1;
 
+  boolean upgrade;
+  boolean done;
+
   ScoreManager() {
     this.score = 0;
     this.enemyKills = 0;
+    this.powerups= 0;
 
     scoreList = new ArrayList<Score>();
   }
@@ -50,7 +55,7 @@ class ScoreManager {
   boolean addEnemyKill() {
     this.enemyKills++;
 
-    if (enemyKills % pow(10,inc) == 0) {
+    if (enemyKills % pow(10, inc) == 0) {
       multiplier = multiplier * 2;
       inc += 1;
 
@@ -64,6 +69,10 @@ class ScoreManager {
     scoreList.add(s);
   }
 
+  void addPowerUp() {
+    this.powerups++;
+  }
+
   int getMultiplier() {
     return multiplier;
   }
@@ -75,6 +84,10 @@ class ScoreManager {
   long getScore() {
     return score;
   };
+  
+  int getPowerUps() {
+    return powerups;
+  }
 
   int getEnemyKills() {
     return enemyKills;
