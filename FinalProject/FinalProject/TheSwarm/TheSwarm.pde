@@ -57,10 +57,8 @@ ScoreManager sm;
 boolean debug = false;
 boolean stats = false;
 
-
 PFont f;
 PFont ff;
-
 
 void setup() {
   size(1280, 768, P3D);
@@ -69,7 +67,6 @@ void setup() {
   ff = createFont("Gridnik.ttf", 128, true);
 
   textFont(f);
-
 
   center = new PVector(width / 2.0, height / 2.0);
   stageMouse = new PVector(mouseX, mouseY);
@@ -163,7 +160,6 @@ void draw() {
     text("GAME OVER!", center.x, center.y);
   }
   popMatrix();
-
 
   fill(#00ff00);
   textAlign(LEFT);

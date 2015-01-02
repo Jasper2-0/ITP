@@ -210,9 +210,7 @@ class Player extends GameObject {
   }
 
   void addLife() {
-    if (lives < 3) {
       lives++;
-    }
   }
 
   void draw() {

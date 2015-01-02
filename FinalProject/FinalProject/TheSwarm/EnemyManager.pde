@@ -78,7 +78,7 @@ class EnemyManager {
           s.setScoreValue(sm.getScoreValue(100));
         }
 
-        if (sm.getEnemyKills() > 0 && sm.getEnemyKills() % 25 == 0) {
+        if (sm.getEnemyKills() > 0 && sm.getEnemyKills() % 100 == 0) {
           s.scoreValue = "EXTRA LIFE!";
           p.addLife();
         }

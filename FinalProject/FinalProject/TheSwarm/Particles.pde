@@ -98,9 +98,6 @@ class ParticleExplosion extends Particle implements IParticle {
       }
     } else {
       strokeWeight(2);
-
-
-
       float w = age/lifespan;
 
       if (w < 0.33) {
@@ -113,8 +110,6 @@ class ParticleExplosion extends Particle implements IParticle {
         particleColor = lerpColor(#002222, #000000, map(w, 0.66, 1.0, 0.0, 1.0));
       }
     }
-
-
 
     stroke(particleColor);
     line(0, 0, vel.x, vel.y);
